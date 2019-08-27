@@ -1,21 +1,7 @@
 import numpy as np
 from random import randint
 
-
-def valid(row, column, i, j):
-    return 0 <= i < row and 0 <= j < column
-
-
-def clean(data):
-    return [d.strip("\n") for d in data]
-
-
-def convert(string):
-    if string == "-":
-        return 0
-    elif string == "+":
-        return 1
-    raise ValueError("Wrong value!")
+from utils import clean, valid, convert
 
 
 class Grid(object):
@@ -26,7 +12,7 @@ class Grid(object):
     def update(self):
         row, column = self.row, self.column
         old_grid = self.grid
-        new_grid = np.array((row, column), dtype=np.int8)
+        new_grid = np.zeros((row, column), dtype=np.int8)
 
         for i in range(row):
             for j in range(column):
@@ -55,8 +41,8 @@ class Grid(object):
         pos, neg, new_line = "+", "-", "\n"
 
         string = ""
-        for j in range(column):
-            for i in range(row):
+        for i in range(row):
+            for j in range(column):
                 if grid[i][j] == 0:
                     string += neg
                 else:
